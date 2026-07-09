@@ -9,6 +9,16 @@
 
 Enterprise AI-powered Assessment Management Platform — built with Django REST Framework, PostgreSQL, and Groq AI.
 
+---
+
+## 📖 Full Documentation
+
+> **Looking for the complete API reference, installation guide, and frontend integration map?**
+>
+> 👉 **[View Full Documentation →](https://claude.ai/code/artifact/c7c670da-f4ea-4f5f-b231-c202f6db8339)**
+>
+> Interactive docs covering every endpoint, request/response format, and a page-by-page frontend guide.
+
 Lecturers upload course materials (PDF/DOCX/PPTX) and the AI automatically generates quiz questions. Universities can manage departments, programmes, courses, sections, and student enrollments end-to-end.
 
 ---
