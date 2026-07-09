@@ -1,5 +1,12 @@
 # Assessment AI OS
 
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-4.2-092E20?style=flat&logo=django&logoColor=white)
+![DRF](https://img.shields.io/badge/DRF-3.15-red?style=flat)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14+-336791?style=flat&logo=postgresql&logoColor=white)
+![Groq AI](https://img.shields.io/badge/AI-Groq%20Llama%203.3-F54033?style=flat)
+![License](https://img.shields.io/badge/License-Proprietary-lightgrey?style=flat)
+
 Enterprise AI-powered Assessment Management Platform — built with Django REST Framework, PostgreSQL, and Groq AI.
 
 Lecturers upload course materials (PDF/DOCX/PPTX) and the AI automatically generates quiz questions. Universities can manage departments, programmes, courses, sections, and student enrollments end-to-end.
@@ -128,9 +135,9 @@ API is live at `http://127.0.0.1:8000`
 
 | Interface | URL |
 |-----------|-----|
-| Swagger UI | http://127.0.0.1:8000/api/docs/ |
-| ReDoc | http://127.0.0.1:8000/api/redoc/ |
-| Raw Schema | http://127.0.0.1:8000/api/schema/ |
+| Swagger UI | [http://127.0.0.1:8000/api/docs/](http://127.0.0.1:8000/api/docs/) |
+| ReDoc | [http://127.0.0.1:8000/api/redoc/](http://127.0.0.1:8000/api/redoc/) |
+| Raw Schema | [http://127.0.0.1:8000/api/schema/](http://127.0.0.1:8000/api/schema/) |
 
 ---
 
