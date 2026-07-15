@@ -22,6 +22,7 @@ urlpatterns = [
     path('api/v1/students/', include('apps.students.urls')),
     path('api/v1/assessments/', include('apps.assessments.urls')),
     path('api/v1/attempts/', include('apps.attempts.urls')),
+    path('api/v1/analytics/', include('apps.analytics.urls')),
 ]
 
 if settings.DEBUG:
