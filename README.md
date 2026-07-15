@@ -357,6 +357,78 @@ topic: Linked Lists
 
 ---
 
+### Student Attempts & Auto Grading
+
+Students take assessments through these endpoints. MCQ and True/False are graded automatically on submission. Short answer and essays are flagged for manual lecturer review.
+
+| Method | Endpoint | Description | Frontend Use |
+|--------|----------|-------------|--------------|
+| POST | `/api/v1/attempts/assessments/<assessment_id>/start/` | Start a new attempt (or resume in-progress) | "Start Quiz" button |
+| POST | `/api/v1/attempts/<attempt_id>/submit/` | Submit answers — auto-grades MCQ/T-F instantly | "Submit" button |
+| GET | `/api/v1/attempts/<attempt_id>/` | View attempt detail with all answers and scores | Results page |
+| GET | `/api/v1/attempts/assessments/<assessment_id>/all/` | All attempts for an assessment (lecturer view) | Submissions list |
+| GET | `/api/v1/attempts/students/<student_profile_id>/all/` | All attempts by a student | Student attempt history |
+| PATCH | `/api/v1/attempts/answers/<answer_id>/grade/` | Manually grade a short answer / essay | Lecturer grading panel |
+
+**Submit body example:**
+```json
+{
+  "answers": [
+    {
+      "question_id": "<uuid>",
+      "selected_option_ids": ["<uuid>"]
+    },
+    {
+      "question_id": "<uuid>",
+      "text_answer": "The answer to the short question..."
+    }
+  ]
+}
+```
+
+**Manual grading body:**
+```json
+{
+  "marks_obtained": 8,
+  "feedback": "Good explanation, missed one key point."
+}
+```
+
+**Attempt statuses:** `in_progress` → `submitted` → `graded`
+
+---
+
+### Analytics & Results
+
+No new data — pure aggregation over attempt results. All responses are ready for charts/dashboards.
+
+| Method | Endpoint | Description | Frontend Use |
+|--------|----------|-------------|--------------|
+| GET | `/api/v1/analytics/assessments/<assessment_id>/summary/` | Pass rate, average score, score distribution in 5 bands, manual grading count | Assessment results page |
+| GET | `/api/v1/analytics/assessments/<assessment_id>/leaderboard/?limit=10` | Top N students ranked by score | Leaderboard widget |
+| GET | `/api/v1/analytics/students/<student_profile_id>/report/` | Student's overall pass rate, average %, per-assessment breakdown | Student performance tab |
+| GET | `/api/v1/analytics/sections/<section_id>/report/` | Class enrolled count, per-assessment stats, top 5 students | Lecturer analytics dashboard |
+
+**Assessment summary response example:**
+```json
+{
+  "assessment_title": "Midterm Exam",
+  "total_attempts": 45,
+  "graded": 43,
+  "passed": 31,
+  "pass_rate_percent": 72.1,
+  "average_percentage": 68.4,
+  "highest_score": 95.0,
+  "lowest_score": 22.0,
+  "needs_manual_grading": 2,
+  "score_distribution": {
+    "0-20": 1, "21-40": 3, "41-60": 8, "61-80": 19, "81-100": 12
+  }
+}
+```
+
+---
+
 ## Standard API Response Format
 
 All endpoints return this shape:
@@ -390,8 +462,15 @@ Error response:
 | **Navbar / Session** | `GET /users/me/` |
 | **Dashboard (Admin)** | `GET /universities/`, `GET /users/` |
 | **Lecturer Profile Page** | `GET /users/<id>/teaching-profile/` |
+| **Lecturer Analytics Dashboard** | `GET /analytics/sections/<id>/report/` |
+| **Assessment Results Page** | `GET /analytics/assessments/<id>/summary/`, `GET /analytics/assessments/<id>/leaderboard/` |
+| **Grading Panel** | `GET /attempts/assessments/<id>/all/`, `PATCH /attempts/answers/<id>/grade/` |
 | **Student Profile Page** | `GET /students/<id>/`, `GET /students/<id>/enrolled-courses/` |
+| **Student Performance Tab** | `GET /analytics/students/<id>/report/` |
 | **Student Dashboard** | `GET /students/<id>/assessments/` |
+| **Student Attempt History** | `GET /attempts/students/<id>/all/` |
+| **Take Quiz / Exam** | `POST /attempts/assessments/<id>/start/`, `POST /attempts/<id>/submit/` |
+| **View My Results** | `GET /attempts/<id>/` |
 | **Class Roster** | `GET /courses/sections/<id>/students/` |
 | **Materials Library** | `GET /courses/sections/<id>/materials/` |
 | **AI Quiz Generator** | `POST /assessments/generate-from-file/` |
@@ -418,10 +497,10 @@ Error response:
 | 4 | Course & Section Management | ✅ Done |
 | 5 | Student Profiles & Enrollment | ✅ Done |
 | 6 | Assessment & Question Bank | ✅ Done |
-| 7 | AI Quiz Generation (Groq / Llama 3) | ✅ Done |
-| 8 | Student Attempt & Auto Grading | 🔜 Next |
-| 9 | Results & Analytics | 🔜 Planned |
-| 10 | Notifications & Reports | 🔜 Planned |
+| 7 | AI Quiz Generation (Groq / Llama 3) + Material Library | ✅ Done |
+| 8 | Student Attempt & Auto Grading | ✅ Done |
+| 9 | Results & Analytics | ✅ Done |
+| 10 | Notifications & Reports | 🔜 Next |
 | 11 | Docker & Production Deploy | 🔜 Planned |
 
 ---
